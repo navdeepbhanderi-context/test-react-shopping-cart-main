@@ -11,18 +11,8 @@ export interface IProductsContext {
   setFilters(filters: string[]): void;
 }
 
-const ProductsContext = createContext<IProductsContext | undefined>(undefined);
-const useProductsContext = (): IProductsContext => {
-  const context = useContext(ProductsContext);
 
-  if (!context) {
-    throw new Error(
-      'useProductsContext must be used within a ProductsProvider'
-    );
-  }
 
-  return context;
-};
 
 const ProductsProvider: FC = (props) => {
   const [isFetching, setIsFetching] = useState(false);
@@ -40,5 +30,21 @@ const ProductsProvider: FC = (props) => {
 
   return <ProductsContext.Provider value={ProductContextValue} {...props} />;
 };
+
+const ProductsContext = createContext<IProductsContext | undefined>(undefined);
+const useProductsContext = (): IProductsContext => {
+  const context = useContext(ProductsContext);
+
+  if (!context) {
+    throw new Error(
+      'useProductsContext must be used within a ProductsProvider'
+    );
+  }
+
+  return context;
+};
+
+
+
 
 export { ProductsProvider, useProductsContext };
